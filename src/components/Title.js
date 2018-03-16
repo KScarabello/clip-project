@@ -3,7 +3,7 @@ import React from 'react';
 
 const Title = () => {
     return(
-        <p>I am the title component</p>
+        <p>Click on your least favorite sports below to delete them until you have three left.</p>
     )
 }
 
