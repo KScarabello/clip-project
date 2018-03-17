@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Button} from 'react-bootstrap';
 
 
 class List extends Component {
@@ -49,15 +50,15 @@ resetSports = () => {
                 <div className="buttons-container">
                     {
                         this.state.isLoading ?
-                            <p className="list-text">loading</p>
-                        :
+                            <p className="list-text">loading...</p>
+                            :
                             this.state.sports.length === 0 ?
                                 <p className="list-text">Oh no, you deleted all the sports :(</p>
-                            :   
+                                :   
                                 this.state.sports.map((sport) => {                    
                                     return(
                                         <div>
-                                            <button className="sport-button" onClick={() => this.deleteSport(sport.id)}>{sport.name}</button>                         
+                                            <Button className="btn-lg btn-outline-primary" onClick={() => this.deleteSport(sport.id)}>{sport.name}</Button>                         
                                         </div>
                                     )   
                                 })                
