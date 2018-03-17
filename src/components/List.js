@@ -7,6 +7,7 @@ class List extends Component {
         super(props)
 
         this.state = {
+            isLoading: true,
             sports: [] 
         }
 
@@ -15,7 +16,10 @@ class List extends Component {
 componentWillMount(){
     axios.get('https://clip-front-end-assessment.herokuapp.com/sports')
         .then((response) => {
-             this.setState({sports:response.data})
+            this.setState({
+                isLoading: false,
+                sports:response.data
+            })
         })
 }
 
@@ -35,27 +39,35 @@ deleteSport = (id) => {
 resetSports = () => {
     axios.get('https://clip-front-end-assessment.herokuapp.com/sports')
         .then((response) => {
-             this.setState({sports:response.data})
+            this.setState({sports:response.data})
         })
 }
     
     render(){
         return(
-            <div>
-                {
-                 this.state.sports.length === 0 ?
-                    <p>Oh no, you deleted all the sports :(</p>
-                 :   
-                    this.state.sports.map((sport) => {                    
-                         return(
-                             <div>
-                                <button onClick={() => this.deleteSport(sport.id)}>{sport.name}</button>                         
-                             </div>
-                        )
-                })                
-                }
-                <button onClick={() => this.resetSports()}>Reset</button>
-
+            <div className="list-container">
+                <div className="buttons-container">
+                    {
+                        this.state.isLoading ?
+                            <p className="list-text">loading</p>
+                        :
+                            this.state.sports.length === 0 ?
+                                <p className="list-text">Oh no, you deleted all the sports :(</p>
+                            :   
+                                this.state.sports.map((sport) => {                    
+                                    return(
+                                        <div>
+                                            <button className="sport-button" onClick={() => this.deleteSport(sport.id)}>{sport.name}</button>                         
+                                        </div>
+                                    )   
+                                })                
+                    }
+                
+                </div>
+                <div className="reset-button-container">
+                    <button onClick={() => this.resetSports()}>Reset</button>
+                </div>
+                
             </div>
         )
     }
