@@ -7,7 +7,7 @@ class List extends Component {
         super(props)
 
         this.state = {
-            sports: [] || "Oh no, you deleted all the sports :("
+            sports: [] 
         }
 
     }
@@ -31,6 +31,13 @@ deleteSport = (id) => {
         }
     }
 }
+
+resetSports = () => {
+    axios.get('https://clip-front-end-assessment.herokuapp.com/sports')
+        .then((response) => {
+             this.setState({sports:response.data})
+        })
+}
     
     render(){
         return(
@@ -45,9 +52,10 @@ deleteSport = (id) => {
                                 <button onClick={() => this.deleteSport(sport.id)}>{sport.name}</button>                         
                              </div>
                         )
-                })
-                
+                })                
                 }
+                <button onClick={() => this.resetSports()}>Reset</button>
+
             </div>
         )
     }
