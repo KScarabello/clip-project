@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Button} from 'react-bootstrap';
+
+// import {Button} from 'react-bootstrap';
 
 
 class List extends Component {
@@ -55,10 +56,22 @@ resetSports = () => {
                             this.state.sports.length === 0 ?
                                 <p className="list-text">Oh no, you deleted all the sports :(</p>
                                 :   
-                                this.state.sports.map((sport) => {                    
+                                this.state.sports.map((sport) => {    
+                                    let imgPath = " ";
+                                    if(/\s/g.test(sport.name.toLowerCase())){                                        
+                                        imgPath = 'images/' + sport.name.replace(/\s/g, '').toLowerCase() + '.png'
+                                    } else {
+                                        imgPath = 'images/' + sport.name.toLowerCase() + '.png'
+                                    }   
+                                    console.log()          
                                     return(
                                         <div>
-                                            <Button className="btn-lg btn-outline-primary" onClick={() => this.deleteSport(sport.id)}>{sport.name}</Button>                         
+                                            
+                                            <button className="sport-button" onClick={() => this.deleteSport(sport.id)}>
+                                                <img src={imgPath} className="sport-image" /> 
+                                                
+                                                {sport.name}
+                                            </button>                         
                                         </div>
                                     )   
                                 })                
