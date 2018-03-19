@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {TweenMax} from  'gsap';
 
-// import {Button} from 'react-bootstrap';
 
 
 class List extends Component {
@@ -25,18 +25,42 @@ componentWillMount(){
         })
 }
 
-deleteSport = (id) => {
+// exitAnimation = (name) => {
+//     document.getElementById(name.toString()).style.animation = "deleteAnimation 2s"
+// }
+
+// deleteSport = (name) => {
+//     for(let i of this.state.sports){
+//         if(i.name === name){
+//             // let stateCopy = this.state.sports.filter(sport => sport.name !== i.name)            
+//             this.exitAnimation(name)
+//             // console.log(name)
+//             // this.setState({
+//             //     sports: stateCopy
+//             // })            
+//         } 
+//     }
+// }
+
+deleteSport = (name) => {
     for(let i of this.state.sports){
-        if(i.id === id){
-            let stateCopy = this.state.sports.filter(sport => sport.id !== i.id)
-            this.setState({
-                sports: stateCopy
-            })            
-        } else {
-            console.log('no match')
-        }
+        if(i.name === name){
+            const stateCopy = this.state.sports.filter(sport => sport.name !== i.name)            
+            return this.exitAnimation(name, name => {
+                this.setState({
+                    sports: stateCopy
+                })
+            })         
+        } 
     }
 }
+
+exitAnimation = (name, cb) => {
+    document.getElementById(name.toString()).style.animation = "deleteAnimation .5s"
+    // called when animation completes after 2s
+    setTimeout(() => cb(name), 500)
+}
+
 
 resetSports = () => {
     axios.get('https://clip-front-end-assessment.herokuapp.com/sports')
@@ -44,6 +68,8 @@ resetSports = () => {
             this.setState({sports:response.data})
         })
 }
+
+
     
     render(){
         return(
@@ -62,14 +88,11 @@ resetSports = () => {
                                         imgPath = 'images/' + sport.name.replace(/\s/g, '').toLowerCase() + '.png'
                                     } else {
                                         imgPath = 'images/' + sport.name.toLowerCase() + '.png'
-                                    }   
-                                    console.log()          
+                                    }                   
                                     return(
                                         <div>
-                                            
-                                            <button className="sport-button" onClick={() => this.deleteSport(sport.id)}>
+                                            <button className="sport-button" id={sport.name} onClick={() => this.deleteSport(sport.name)}>
                                                 <img src={imgPath} className="sport-image" /> 
-                                                
                                                 {sport.name}
                                             </button>                         
                                         </div>
@@ -79,7 +102,7 @@ resetSports = () => {
                 
                 </div>
                 <div className="reset-button-container">
-                    <button onClick={() => this.resetSports()}>Reset</button>
+                    <button className="reset-button" onClick={() => this.resetSports()}>Reset</button>
                 </div>
                 
             </div>
