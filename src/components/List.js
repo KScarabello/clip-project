@@ -28,19 +28,20 @@ componentWillMount(){
 
 deleteSport = (name) => {
     for(let i of this.state.sports){
+        console.log(i.name)
         if(i.name === name){           
             return this.exitAnimation(name, name => {
                 const stateCopy = this.state.sports.filter(sport => sport.name !== name)
                 this.setState({
                     sports: stateCopy
                 })
-                    
-        }) 
+            }) 
+        }
     }
-}
 }
 
 exitAnimation = (name, cb) => {
+    
     document.getElementById(name).style.animation = "deleteAnimation .75s"    
     setTimeout(() => cb(name), 750)
 }
@@ -67,7 +68,7 @@ resetSports = () => {
                                 <p className="list-text">Oh no, you deleted all the sports :(</p>
                                 :   
                                 this.state.sports.map((sport) => {    
-                                    let imgPath = " ";
+                                    let imgPath = "";
                                     if(/\s/g.test(sport.name.toLowerCase())){                                        
                                         imgPath = 'images/' + sport.name.replace(/\s/g, '').toLowerCase() + '.png'
                                     } else {
