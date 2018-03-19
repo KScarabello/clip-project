@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {TweenMax} from  'gsap';
+
 
 
 
@@ -25,40 +25,24 @@ componentWillMount(){
         })
 }
 
-// exitAnimation = (name) => {
-//     document.getElementById(name.toString()).style.animation = "deleteAnimation 2s"
-// }
-
-// deleteSport = (name) => {
-//     for(let i of this.state.sports){
-//         if(i.name === name){
-//             // let stateCopy = this.state.sports.filter(sport => sport.name !== i.name)            
-//             this.exitAnimation(name)
-//             // console.log(name)
-//             // this.setState({
-//             //     sports: stateCopy
-//             // })            
-//         } 
-//     }
-// }
 
 deleteSport = (name) => {
     for(let i of this.state.sports){
-        if(i.name === name){
-            const stateCopy = this.state.sports.filter(sport => sport.name !== i.name)            
+        if(i.name === name){           
             return this.exitAnimation(name, name => {
+                const stateCopy = this.state.sports.filter(sport => sport.name !== name)
                 this.setState({
                     sports: stateCopy
                 })
-            })         
-        } 
+                    
+        }) 
     }
+}
 }
 
 exitAnimation = (name, cb) => {
-    document.getElementById(name.toString()).style.animation = "deleteAnimation .5s"
-    // called when animation completes after 2s
-    setTimeout(() => cb(name), 500)
+    document.getElementById(name).style.animation = "deleteAnimation .75s"    
+    setTimeout(() => cb(name), 750)
 }
 
 
