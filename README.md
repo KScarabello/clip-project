@@ -1,4 +1,43 @@
-<<<<<<< HEAD
+This project contains a list of sports, which is retrieved from an outside API. The user has the option to remove sports from the list and restore the list to its original state via a reset button. 
+
+DEPENDENCIES:
+
+This project utilizes Axios, a http request client with promises. It is utilized to fetch data from a provided endpoint and return the information for reference in this project. It can be installed via running 'npm install --save axios'.
+
+More information about Axios can be accessed at 
+https://github.com/axios/axios
+
+
+
+HOW IT WORKS:
+
+Utilizing the React lifecycle method componentWillMount, an http request is sent to a specified http address. It retrieves the data, and upon returning it, the data gets saved in an array on the List component's local state (which I have called sports). During the delay while the data is being retrieved, a 'loading...' message should be displayed.
+
+In the List component's render method, a map function is used to render a button that contains the sport's name as well as an image that corresponds with the actual sport.
+
+Deletion of a sport from the list is handled via the deleteSport function in the List component. The sport name of the specific sport that is clicked is passed into the function as a parameter, and is then used in a .filter() method to create a new array without the deleted sport. Before setting state with the new filtered array, a seperate function called exitAnimation() is activated, which applies a subtle animation to make the clicked button disappear. Immediately after the animation, state is set with the new filtered array, and the sport is effectively removed from state.
+
+If a user deletes every sport, the sports array is empty and a message stating "Oh no, you deleted all the sports :(" is conditionally rendered.
+
+When the user clicks the reset button, a new Axios request is fired, which re-retrieves the data from the API, resets the sports array on state, and effectively starts the process over.
+
+
+HOW TO ACCESS ON YOUR MACHINE:
+
+Run a 'git clone https://github.com/KScarabello/clip-project.git' on your machine in a folder of your preference.
+
+Navigate into the correct folder via 'cd' commands.
+
+Run 'npm install', as this project requires node-modules to access Axios.
+
+Run 'npm start', which will bring up the project on a localhost.
+
+Enjoy!
+
+Please note: this project was infact bootstrapped using create-react-app. Create-react-app applications come with a default README.md file that has a lot of good information on how to use the project. I did not write the portions below, but wish to include them in this README because they could be useful.
+
+------------------------------------------------------------------------------------------------------------
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
@@ -2433,7 +2472,3 @@ In the future, we might start automatically compiling incompatible third-party m
 ## Something Missing?
 
 If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebookincubator/create-react-app/issues) or [contribute some!](https://github.com/facebookincubator/create-react-app/edit/master/packages/react-scripts/template/README.md)
-=======
-# clip-project
-Clip-project
->>>>>>> d31f25011addd23b9299bd38bf2522f8ee9b57ab
